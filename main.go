@@ -83,6 +83,8 @@ func handleMessages() {
 		// grab any next message from channel
 		msg := <-broadcaster
 
+		log.Printf("New message sent: %s", msg)
+
 		storeInRedis(msg)
 		messageClients(msg)
 	}
