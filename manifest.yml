@@ -26,7 +26,25 @@ spec:
             - name: REDIS_URL
               value: redis://ahoy-kirk-redis-service:6379
           ports: 
-    app: ahoy-kirk-chat
+            - containerPort: 4444
+              name: chat-port
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ahoy-kirk-redis
+  namespace: kirk
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ahoy-kirk-redis
+  template:
+    metadata:
+      labels:
+        app: ahoy-kirk-redis
+    spec:
+      containers:
         - name: redis
           image: redis:alpine
           ports: 
